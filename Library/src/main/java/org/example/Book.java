@@ -109,23 +109,24 @@ public class Book {
         }
 
     }
-    public static void displayBooksOut(Book[] inventory){
-        for(int i=0; i<inventory.length;i++){
 
+    public static void displayBooksOut(Book[] inventory) {
+        for (int i = 0; i < inventory.length; i++) {
 
-            if (inventory[i] != null && inventory[i].isCheckedOut){
+            if (inventory[i] != null && inventory[i].isCheckedOut) {
                 System.out.println(inventory[i].toString());
             }
         }
     }
-    public static void findOutBookById(Book[] inventory, int id, Scanner scanner){
-        for (int i =0; i < inventory.length; i++){
+
+    public static void findOutBookById(Book[] inventory, int id, Scanner scanner) {
+        for (int i = 0; i < inventory.length; i++) {
 
             Book selectedBook = inventory[i];
 
-            if (selectedBook != null && selectedBook.id == id){
-                selectedBook.isCheckedOut=false;
-                selectedBook.checkedOutTo="N/A";
+            if (selectedBook != null && selectedBook.id == id) {
+                selectedBook.isCheckedOut = false;
+                selectedBook.checkedOutTo = "N/A";
                 System.out.println("Your book has been checked back in...returning to home screen. ");
                 break;
 
@@ -133,10 +134,31 @@ public class Book {
         }
     }
 
+    public static void findBooksByTitle(Book[] inventory, String title, Scanner scanner) {
+        for (int i = 0; i < inventory.length; i++) {
+
+            Book bookFound = inventory[i];
+
+            if (bookFound != null && bookFound.title.equalsIgnoreCase(title)) {
+                System.out.println("Found: " + bookFound.toString());
+
+            }
 
 
+        }
+    }
 
+    public static void findBookByIsbn(Book[] inventory, String isbn, Scanner scanner) {
+        for (int i = 0; i < inventory.length; i++) {
+
+
+            Book bookIsbn = inventory[i];
+
+            if (bookIsbn != null && bookIsbn.isbn == isbn) {
+                System.out.println("Found: " + bookIsbn.toString());
+            }
+        }
+
+
+    }
 }
-
-
-

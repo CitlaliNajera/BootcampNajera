@@ -23,7 +23,28 @@ public class Main {
 
         inventory[6]= new Book(106,"9786789012345", "Tides of Fate", false);
 
+        inventory[7] = new Book(101, "9781234567890", "Whispers in the Wind", false);
+
+        inventory[8] = new Book(102, "9782345678901", "The Forgotten Realm", false);
+
+        inventory[9] = new Book(103, "9783456789012", "Echoes of Tomorrow", true, "Sophia Lane");
+
+        inventory[10] = new Book(105, "9785678901234", "Shadows Among Us", false);
+
+        inventory[11] = new Book(106, "9786789012345", "Chronicles of Solaria", true, "Nora Wren");
+
+        inventory[12] = new Book(107, "9787890123456", "Twilight Over Terra", true, "Ethan Vale");
+
+        inventory[13] = new Book(108, "9788901234567", "Secrets Beneath", false);
+
+        inventory[14] = new Book(109, "9789012345678", "Rise of the Phoenix", true, "Max Harper");
+
+        inventory[15] = new Book(110, "9780123456789", "Beneath the Iron Sky", false);
+
+
         Scanner scanner = new Scanner(System.in);
+
+
 
 
 
@@ -32,7 +53,9 @@ public class Main {
             System.out.println("What do you want to do?");
             System.out.println("1) Show the books available");
             System.out.println("2) Show the books currently unavailable");
-            System.out.println("3) Quit");
+            System.out.println("3) Search books by title");
+            System.out.println("4) Search books by ISBN");
+            System.out.println("5) Quit");
 
             int userChoice= scanner.nextInt();
 
@@ -72,11 +95,27 @@ public class Main {
                 break;
 
                 case 3:
-                    System.out.println("Exiting the application, Goodbye!");
+                    System.out.println("\n Enter the books Title");
+                    String bookTitle = scanner.nextLine();
+                    scanner.nextLine();
+                    Book.findBooksByTitle(inventory,bookTitle,scanner);
+                break;
+
+
+                case 4:
+                    System.out.println("\n Enter the book's ISBN number");
+                    String bookIsbn = scanner.nextLine();
+                    scanner.nextLine();
+                    Book.findBookByIsbn(inventory,bookIsbn,scanner);
+                break;
+
+
+                case 5:
+                    System.out.println("\nExiting the application, Goodbye!");
                     break;
 
                 default:
-                    System.out.println("Please select an option");
+                    System.out.println("\nPlease select an option");
                     break;
 
             }
