@@ -23,7 +23,7 @@ public class Book {
         this.isbn = isbn;
         this.title = title;
         this.isCheckedOut = false;
-        this.checkedOutTo = "N/A";
+        this.checkedOutTo = "Empty";
 
 
     }
@@ -92,6 +92,7 @@ public class Book {
     }
 
     public static void findBookById(Book[] inventory, int id, Scanner scanner) {
+
         for (int i = 0; i < inventory.length; i++) {
 
             Book currentBook = inventory[i];
@@ -103,6 +104,7 @@ public class Book {
                 currentBook.checkedOutTo = userName;
                 System.out.println("Congrats the book is yours!");
                 System.out.println("Returning to home screen...");
+
                 break;
 
             }
@@ -120,6 +122,7 @@ public class Book {
     }
 
     public static void findOutBookById(Book[] inventory, int id, Scanner scanner) {
+
         for (int i = 0; i < inventory.length; i++) {
 
             Book selectedBook = inventory[i];
@@ -127,36 +130,56 @@ public class Book {
             if (selectedBook != null && selectedBook.id == id) {
                 selectedBook.isCheckedOut = false;
                 selectedBook.checkedOutTo = "N/A";
-                System.out.println("Your book has been checked back in...returning to home screen. ");
+                System.out.println("Your book has been checked back in... \n Returning to home screen. ");
                 break;
 
             }
+
         }
+
     }
 
     public static void findBooksByTitle(Book[] inventory, String title, Scanner scanner) {
+        boolean found =false;
         for (int i = 0; i < inventory.length; i++) {
 
             Book bookFound = inventory[i];
 
-            if (bookFound != null && bookFound.title.equalsIgnoreCase(title)) {
-                System.out.println("Found: " + bookFound.toString());
+            if (bookFound != null && bookFound.title.trim().equalsIgnoreCase(title.trim())) {
+                System.out.println("Here is the book information: " + bookFound.toString() +"\n " +
+                        "Returning to the home screen...");
+                found=true;
+                break;
+
+
 
             }
-
-
         }
+        if (!found) {
+            System.out.println("System does not recognize that Title. Please try again.");
+        }
+
     }
 
     public static void findBookByIsbn(Book[] inventory, String isbn, Scanner scanner) {
+        boolean found = false;
+
         for (int i = 0; i < inventory.length; i++) {
 
 
             Book bookIsbn = inventory[i];
 
-            if (bookIsbn != null && bookIsbn.isbn == isbn) {
-                System.out.println("Found: " + bookIsbn.toString());
+            if (bookIsbn != null && bookIsbn.isbn.trim().equalsIgnoreCase(isbn.trim())) {
+                System.out.println("Here is the books information: " + bookIsbn.toString()+
+                        "\n Returning to the home screen...");
+                found = true;
+                break;
+
             }
+
+        }
+        if(!found){
+            System.out.println("System does not recognize that ISBN. Please try again.");
         }
 
 

@@ -23,23 +23,23 @@ public class Main {
 
         inventory[6]= new Book(106,"9786789012345", "Tides of Fate", false);
 
-        inventory[7] = new Book(101, "9781234567890", "Whispers in the Wind", false);
+        inventory[7] = new Book(107, "9781234567890", "Whispers in the Wind", false);
 
-        inventory[8] = new Book(102, "9782345678901", "The Forgotten Realm", false);
+        inventory[8] = new Book(108, "9782345678901", "The Forgotten Realm", false);
 
-        inventory[9] = new Book(103, "9783456789012", "Echoes of Tomorrow", true, "Sophia Lane");
+        inventory[9] = new Book(109, "9783456789012", "Echoes of Tomorrow", true, "Sophia Lane");
 
-        inventory[10] = new Book(105, "9785678901234", "Shadows Among Us", false);
+        inventory[10] = new Book(110, "9785678901234", "Shadows Among Us", false);
 
-        inventory[11] = new Book(106, "9786789012345", "Chronicles of Solaria", true, "Nora Wren");
+        inventory[11] = new Book(111, "9786789012345", "Chronicles of Solaria", true, "Nora Wren");
 
-        inventory[12] = new Book(107, "9787890123456", "Twilight Over Terra", true, "Ethan Vale");
+        inventory[12] = new Book(112, "9787890123456", "Twilight Over Terra", true, "Ethan Vale");
 
-        inventory[13] = new Book(108, "9788901234567", "Secrets Beneath", false);
+        inventory[13] = new Book(113, "9788901234567", "Secrets Beneath", false);
 
-        inventory[14] = new Book(109, "9789012345678", "Rise of the Phoenix", true, "Max Harper");
+        inventory[14] = new Book(114, "9789012345678", "Rise of the Phoenix", true, "Max Harper");
 
-        inventory[15] = new Book(110, "9780123456789", "Beneath the Iron Sky", false);
+        inventory[15] = new Book(115, "9780123456789", "Beneath the Iron Sky", false);
 
 
         Scanner scanner = new Scanner(System.in);
@@ -95,17 +95,19 @@ public class Main {
                 break;
 
                 case 3:
-                    System.out.println("\n Enter the books Title");
-                    String bookTitle = scanner.nextLine();
+                    System.out.println("\n Enter the book Title");
                     scanner.nextLine();
-                    Book.findBooksByTitle(inventory,bookTitle,scanner);
+                    String bookTitle = scanner.nextLine();
+
+                    Book.findBooksByTitle(inventory,bookTitle ,scanner);
                 break;
 
 
+
                 case 4:
-                    System.out.println("\n Enter the book's ISBN number");
-                    String bookIsbn = scanner.nextLine();
+                    System.out.println("\n Enter the book ISBN number");
                     scanner.nextLine();
+                    String bookIsbn = scanner.nextLine();
                     Book.findBookByIsbn(inventory,bookIsbn,scanner);
                 break;
 
@@ -119,7 +121,7 @@ public class Main {
                     break;
 
             }
-            if ( userChoice==3){
+            if ( userChoice==5){
                 break;
             }
 
