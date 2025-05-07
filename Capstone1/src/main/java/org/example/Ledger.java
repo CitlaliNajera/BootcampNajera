@@ -144,11 +144,10 @@ public class Ledger {
 
                 System.out.println(selectTransactions.toString());
                 found=true;
-
             }
-            if(!found){
-                System.out.println("System could not find description, please try again");
-            }
+        }
+        if(!found){
+            System.out.println("System could not find description, please try again");
         }
 
     }
