@@ -56,16 +56,15 @@ public abstract class Contract {
     }
 
 
-    public double gettotalPrice(){
+    public double gettotalPrice() {
         return totalPrice;
     }
 
 
-
-    public double getmonthlyPayment(){
+    public double getmonthlyPayment() {
         return monthlyPayment;
 
     }
-
-
 }
+
+

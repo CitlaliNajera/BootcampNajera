@@ -57,7 +57,8 @@ public class Dealership {
     public  List<Vehicle> getVehiclesByMakeModel(String make, String model){
         List<Vehicle> vehicles = new ArrayList<>();
         for(Vehicle vehicle : inventory) {
-            if (vehicle.getMake() == make && vehicle.getModel() == model) {
+            if (vehicle.getMake().toLowerCase().contains(make.toLowerCase()) &&
+                    vehicle.getModel().toLowerCase().contains(model.toLowerCase())) {
                 vehicles.add(vehicle);
             }
         }
@@ -77,17 +78,17 @@ public class Dealership {
     public  List<Vehicle> getVehiclesByColor(String color){
         List<Vehicle> vehicles = new ArrayList<>();
         for(Vehicle vehicle : inventory){
-            if(vehicle.getColor()== color){
+            if(vehicle.getColor().toLowerCase().contains(color.toLowerCase())){
                 vehicles.add(vehicle);
             }
         }
         return vehicles;
 
     }
-    public  List<Vehicle> getVehiclesByMileage (int odometerStart,int odometerEnd){
+    public  List<Vehicle> getVehiclesByMileage (int odometerLow,int odometerHigh){
         List<Vehicle> vehicles = new ArrayList<>();
         for(Vehicle vehicle : inventory){
-            if(vehicle.getOdometer()<odometerStart && vehicle.getOdometer()>odometerEnd){
+            if(vehicle.getOdometer()>odometerLow && vehicle.getOdometer()<odometerHigh){
                 vehicles.add(vehicle);
             }
         }
@@ -97,11 +98,20 @@ public class Dealership {
     public  List<Vehicle> getVehiclesByType (String vehicleType){
         List<Vehicle> vehicles = new ArrayList<>();
         for(Vehicle vehicle : inventory ){
-            if(vehicle.getVehicleType()==vehicleType){
+            if(vehicle.getVehicleType().toLowerCase().contains(vehicleType.toLowerCase())){
                 vehicles.add(vehicle);
             }
         }
         return vehicles;
+
+    }
+    public Vehicle getVehicleByVIN (int vin){
+        for(Vehicle vehicle : inventory){
+            if(vehicle.getVin() == vin){
+               return vehicle;
+            }
+        }
+        return null;
 
     }
 
@@ -117,7 +127,20 @@ public class Dealership {
     public void removeVehicle(Vehicle vehicle){
         this.inventory.remove(vehicle);
 
-
+    }
+    public void displayVehicles(List<Vehicle> vehicles) {
+        if (vehicles.isEmpty()) {
+            System.out.println("No vehicles available.");
+        } else {
+            System.out.println("\nDisplaying All Vehicles:");
+            for (Vehicle vehicle : vehicles) {
+                System.out.println(vehicle.toString());
+            }
+        }
+    }
+    public void displayAllVehicles(Dealership dealership) {
+        List<Vehicle> vehicles = dealership.getAllVehicles();
+        displayVehicles(vehicles);
     }
 
 
