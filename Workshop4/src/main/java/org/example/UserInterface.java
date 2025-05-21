@@ -1,4 +1,6 @@
 package org.example;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -203,9 +205,11 @@ public class UserInterface {
                             int contractInput = Integer.parseInt(scanner.nextLine());
                             switch(contractInput){
                                 case 1:
-                                    System.out.println("Enter the date (MM/DD/YYYY): \n");
-                                    String date = scanner.nextLine();
+                                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                                    String date = LocalDate.now().format(dateFormatter);
+                                    System.out.println("Today's date: \n" +date +"\n ");
                                     sleep(500);
+
 
                                     System.out.println("Enter customer name: \n");
                                     String customerName = scanner.nextLine();
@@ -247,11 +251,14 @@ public class UserInterface {
 
                                     ContractFileManager.saveReceiptToFile(receipt);
 
+
                                     break;
 
                                 case 2:
-                                    System.out.println("Enter the date (MM/DD/YYYY):\n ");
-                                    String leaseDate = scanner.nextLine();
+                                    DateTimeFormatter dateFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                                    String leaseDate = LocalDate.now().format(dateFormatter2);
+                                    System.out.println("Today's date: \n" +leaseDate +"\n ");
+
                                     sleep(500);
 
                                     System.out.println("Enter customer name:\n ");
@@ -294,6 +301,7 @@ public class UserInterface {
 
 
                                     ContractFileManager.saveReceiptToFile(receiptLease);
+
 
                                     break;
 
