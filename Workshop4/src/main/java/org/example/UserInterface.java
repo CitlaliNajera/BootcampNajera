@@ -322,6 +322,7 @@ public class UserInterface {
 
                      break;
                     case 99:
+                        DealershipFileManager.saveDealership(dealership);
                         System.out.println("Exiting...");
                         isRunning = false;
                         break;
