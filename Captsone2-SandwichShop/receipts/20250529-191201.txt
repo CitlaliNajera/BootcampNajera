@@ -1,0 +1,5 @@
+--- Sandwich Bar Receipt ---
+
+Total: $0.00
+
+Thank you for your order!

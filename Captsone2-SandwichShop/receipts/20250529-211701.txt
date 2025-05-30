@@ -1,0 +1,9 @@
+--- Sandwich Bar Receipt ---
+
+Date: 05/29/2025
+Order 1:
+No sandwich on No bread, No side sauce | Total price = $0.00
+
+Total: $0.00
+
+Thank you for your order!

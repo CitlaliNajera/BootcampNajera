@@ -1,0 +1,11 @@
+--- Sandwich Bar Receipt ---
+
+Order 1:
+4 inch - $5.50 on White,  [Toasted]  | Meats: [Steak, Ham],  | Cheeses and extras: [American, Swiss], Extra Steak, Extra American,  | Condiments: [Thousand Islands, Vinaigrette, Au Jus], Side Ketchup | Sides: Small drink,Chips | Total price = $13.30
+
+Order 2:
+8 inch - $7.00 on Wheat,  [Toasted]  | Meats: [Steak, Ham],  | Cheeses and extras: [Provolone], Extra Steak, Extra Provolone,  | Toppings: Peppers, Guacamole, Mushrooms | Condiments: [Mayo, Au Jus], No side sauce | Sides: Medium drink | Total price = $16.60
+
+Total: $29.90
+
+Thank you for your order!

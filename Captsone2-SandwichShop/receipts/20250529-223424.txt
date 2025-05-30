@@ -1,0 +1,13 @@
+--- Sandwich Bar Receipt ---
+
+Date: 05/29/2025
+Order 1:
+8 inch - $7.00 on Wrap,  [Toasted]  | Meats: [Chicken],  | Cheeses and extras: [Cheddar], Extra Chicken, Extra Cheddar,  | Toppings: Lettuce, Onions, Tomatoes, Jalapenos, Cucumbers, Guacamole | Condiments: [Vinaigrette], Side Thousand Islands | Sides: Small drink,Chips | Total price = $15.60
+
+Date: 05/29/2025
+Order 2:
+12 inch - $8.50 on White,  [Toasted]  | Meats: [Steak, Bacon],  | Cheeses and extras: [Provolone], Extra Bacon, Extra Provolone,  | Toppings: Lettuce, Peppers, Pickles, Mushrooms | Condiments: [Mayo, Mustard, Ketchup, Au Jus], No side sauce | Sides: Large drink,Chips | Total price = $23.65
+
+Total: $39.25
+
+Thank you for your order!
