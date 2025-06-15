@@ -2,11 +2,48 @@ package org.example;
 
 public class SalesContract extends Contract {
     private boolean financeLoan;
+    private int dealershipId;
+    private int vehicleVin;
+    private double salePrice;
 
     public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicle, boolean financeLoan) {
         super(date, customerName, customerEmail, vehicle);
         this.financeLoan = financeLoan;
     }
+
+
+    public SalesContract(String date, String customerName, String customerEmail, int vehicleVin, int dealershipId,double salePrice) {
+        super(date, customerName, customerEmail);
+        this.dealershipId = dealershipId;
+        this.vehicleVin = vehicleVin;
+        this.salePrice = salePrice;
+
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public int getVehicleVin() {
+        return vehicleVin;
+    }
+
+    public void setVehicleVin(int vehicleVin) {
+        this.vehicleVin = vehicleVin;
+    }
+
+    public int getDealershipId() {
+        return dealershipId;
+    }
+
+    public void setDealershipId(int dealershipId) {
+        this.dealershipId = dealershipId;
+    }
+
 
     public boolean isFinanceLoan() {
         return financeLoan;

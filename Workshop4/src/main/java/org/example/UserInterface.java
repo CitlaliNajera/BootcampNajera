@@ -1,26 +1,32 @@
 package org.example;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import org.example.Dao.LeaseDao;
+import org.example.Dao.SalesDao;
+import org.example.Dao.VehicleDao;
+
 import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Thread.*;
 
 public class UserInterface {
+    private static Dealership dealership;
 
-
-
-    static void display() {
-        DealershipFileManager fileManager = new DealershipFileManager();
-
-        Dealership dealership = fileManager.getDealership();
-
-        if (dealership == null) {
-            System.out.println("Unable to proceed without a valid dealership.");
-            return;
-        }
-        boolean isRunning = true;
+    public static void display(){
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter database username: ");
+        String dbUserName = scanner.nextLine();
+        System.out.print("Enter database password: ");
+        String dbPassword = scanner.nextLine();
+
+        String connectionString = "jdbc:mysql://localhost:3306/dealership";
+        VehicleDao vehicleDao = new VehicleDao(connectionString, dbUserName, dbPassword);
+        SalesDao salesDao = new SalesDao(connectionString,dbUserName,dbPassword);
+        LeaseDao leaseDao = new LeaseDao(connectionString,dbUserName,dbPassword);
+
+
+
+        boolean isRunning = true;
+
         while (isRunning) {
             System.out.println("""
                     Welcome to AutoMart Dealership\n 
@@ -51,12 +57,12 @@ public class UserInterface {
                         System.out.println("Maximum price:\n");
                         double maxPrice = Double.parseDouble(scanner.nextLine());
                         sleep(500);
-                        List<Vehicle> vehicles = dealership.getVehiclesByPrice(minPrice, maxPrice);
+                        List<Vehicle> vehicles = vehicleDao.getVehiclesByPrice(minPrice, maxPrice);
 
                         if (vehicles.isEmpty()) {
                             System.out.println("No vehicles found in the specified price range.\n");
                         } else {
-                            dealership.displayVehicles(vehicles);
+                            vehicleDao.displayVehicles(vehicles);
                         }
                         break;
                     case 2:
@@ -68,11 +74,11 @@ public class UserInterface {
                         System.out.println("Model of car:\n");
                         String carModel = scanner.nextLine();
                         sleep(500);
-                        List<Vehicle> vehicles1 = dealership.getVehiclesByMakeModel(carMake, carModel);
+                        List<Vehicle> vehicles1 = vehicleDao.getVehiclesByMakeModel(carMake, carModel);
                         if (vehicles1.isEmpty()) {
-                            System.out.println("No vehicles found with that make or model.\n");
-                        } else {
-                            dealership.displayVehicles(vehicles1);
+                          System.out.println("No vehicles found with that make or model.\n");
+                         } else {
+                          vehicleDao.displayVehicles(vehicles1);
                         }
                         break;
                     case 3:
@@ -84,11 +90,11 @@ public class UserInterface {
                         System.out.println("Ending year: \n");
                         int yearEnd = Integer.parseInt(scanner.nextLine());
                         sleep(500);
-                        List<Vehicle> vehicles2 = dealership.getVehiclesByYear(yearStart, yearEnd);
+                        List<Vehicle> vehicles2 = vehicleDao.getVehicleByYearRange(yearStart, yearEnd);
                         if (vehicles2.isEmpty()) {
                             System.out.println("No vehicles found in between the years chosen.\n");
                         } else {
-                            dealership.displayVehicles(vehicles2);
+                            vehicleDao.displayVehicles(vehicles2);
                         }
                         break;
                     case 4:
@@ -97,11 +103,11 @@ public class UserInterface {
                         System.out.println("Enter a color: \n");
                         String color = scanner.nextLine();
                         sleep(500);
-                        List<Vehicle> vehicles3 = dealership.getVehiclesByColor(color);
+                        List<Vehicle> vehicles3 = vehicleDao.getVehiclesByColor(color);
                         if (vehicles3.isEmpty()) {
                             System.out.println("No vehicles found in the color chosen.\n");
                         } else {
-                            dealership.displayVehicles(vehicles3);
+                            vehicleDao.displayVehicles(vehicles3);
                         }
                         break;
                     case 5:
@@ -113,11 +119,11 @@ public class UserInterface {
                         System.out.println("Odometer maximum: \n");
                         int odometerHigh = Integer.parseInt(scanner.nextLine());
 
-                        List<Vehicle> vehicles4 = dealership.getVehiclesByMileage(odometerLow, odometerHigh);
+                        List<Vehicle> vehicles4 = vehicleDao.getVehiclesByMileage(odometerLow, odometerHigh);
                         if (vehicles4.isEmpty()) {
                             System.out.println("No vehicles found between the odometer range entered.\n");
                         } else {
-                            dealership.displayVehicles(vehicles4);
+                            vehicleDao.displayVehicles(vehicles4);
                         }
                         break;
                     case 6:
@@ -126,18 +132,21 @@ public class UserInterface {
                         System.out.println("Enter type of vehicle: \n");
                         String carType = scanner.nextLine();
 
-                        List<Vehicle> vehicles5 = dealership.getVehiclesByType(carType);
+                        List<Vehicle> vehicles5 = vehicleDao.getVehiclesByType(carType);
                         if (vehicles5.isEmpty()) {
                             System.out.println("No vehicles found with the specific car type chosen.\n");
                         } else {
-                            dealership.displayVehicles(vehicles5);
+                            vehicleDao.displayVehicles(vehicles5);
                         }
                         break;
+
                     case 7:
                         System.out.println("Listing all vehicles... \n");
                         sleep(500);
-                        dealership.displayAllVehicles(dealership);
+                        List<Vehicle> vehicles6 = vehicleDao.getAllVehicles();
+                        vehicleDao.displayVehicles(vehicles6);
                         break;
+
                     case 8:
                         System.out.println("Please fill out information to add vehicle\n");
 
@@ -166,7 +175,7 @@ public class UserInterface {
                         double price = Double.parseDouble(scanner.nextLine());
 
                         Vehicle newVehicle = new Vehicle(vin, year, make, model, type, carColor, odometer, price);
-                        dealership.addVehicle(newVehicle);
+                        vehicleDao.addVehicle(newVehicle);
 
                         System.out.println("Vehicle added successfully: \n" + newVehicle);
                         break;
@@ -175,18 +184,10 @@ public class UserInterface {
                         System.out.println("Enter the VIN of the vehicle to remove:\n ");
                         sleep(500);
                         int vinRemove = Integer.parseInt(scanner.nextLine());
-                        Vehicle vehicleToRemove = dealership.getVehicleByVIN(vinRemove);
-                        if (vehicleToRemove != null) {
 
-                            dealership.removeVehicle(vehicleToRemove);
-                            System.out.println("Vehicle removed successfully: \n" + vehicleToRemove);
+                            vehicleDao.removeVehicle(vinRemove);
+                            System.out.println("Vehicle removed successfully \n");
 
-                        }
-                        else {
-                            System.out.println("No vehicles found with VIN inputted ");
-
-
-                        }
                         break;
                     case 10:
                         System.out.println("Loading Contract menu...\n");
@@ -205,9 +206,9 @@ public class UserInterface {
                             int contractInput = Integer.parseInt(scanner.nextLine());
                             switch(contractInput){
                                 case 1:
-                                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-                                    String date = LocalDate.now().format(dateFormatter);
-                                    System.out.println("Today's date: \n" +date +"\n ");
+
+                                    System.out.println("Set date in this format yyyy-mm-dd \n ");
+                                    String date = scanner.nextLine();
                                     sleep(500);
 
 
@@ -223,43 +224,46 @@ public class UserInterface {
                                     int salesVin = Integer.parseInt(scanner.nextLine());
                                     sleep(500);
 
-                                    Vehicle selectedVehicle = dealership.getVehicleByVIN(salesVin);
+                                    System.out.println("Enter the dealership ID for this vehicle:");
+                                    int dealershipId = Integer.parseInt(scanner.nextLine());
+                                    sleep(500);
 
-                                    if (selectedVehicle == null) {
-                                        System.out.println("No vehicle found with VIN\n");
-                                    } else {
-                                        System.out.println("Vehicle selected:\n " + selectedVehicle);
-                                    }
+                                    System.out.println("Enter the sale price of the vehicle:");
+                                    double salePrice= Double.parseDouble(scanner.nextLine());
+                                    sleep(500);
 
-                                    System.out.println("Will this be financed? (yes/no)\n");
-                                    String financeInput = scanner.nextLine();
-                                    boolean financeLoan = financeInput.equalsIgnoreCase("yes");
+
+                                   // System.out.println("Will this be financed? (yes/no)\n");
+                                    //String financeInput = scanner.nextLine();
+                                    //boolean financeLoan = financeInput.equalsIgnoreCase("yes");
 
                                     SalesContract salesContract = new SalesContract(
                                             date,
                                             customerName,
                                             customerEmail,
-                                            selectedVehicle,
-                                            financeLoan
+                                            salesVin,
+                                            dealershipId,
+                                            salePrice
                                     );
-                                    ContractDataManager.processContract(dealership, salesContract);
 
+                                    //ContractDataManager.processContract(dealership, salesContract);
+                                    //String receipt = ContractFileManager.generateReceipt(salesContract);
+                                   // System.out.println(receipt);
+                                   // ContractFileManager.saveReceiptToFile(receipt);
 
-                                    String receipt = ContractFileManager.generateReceipt(salesContract);
-                                    System.out.println(receipt);
-
-
-                                    ContractFileManager.saveReceiptToFile(receipt);
-
+                                    salesDao.addSalesContract(salesContract);
+                                    System.out.println("Sales contract added");
 
                                     break;
 
                                 case 2:
-                                    DateTimeFormatter dateFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-                                    String leaseDate = LocalDate.now().format(dateFormatter2);
-                                    System.out.println("Today's date: \n" +leaseDate +"\n ");
-
+                                    //DateTimeFormatter dateFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                                    //String leaseDate = LocalDate.now().format(dateFormatter2);
+                                   // System.out.println("Today's date: \n" +leaseDate +"\n ");
+                                    System.out.println("Set date in this format yyyy-mm-dd \n ");
+                                    String leaseDate = scanner.nextLine();
                                     sleep(500);
+
 
                                     System.out.println("Enter customer name:\n ");
                                     String leaseName = scanner.nextLine();
@@ -273,35 +277,48 @@ public class UserInterface {
                                     int leaseVin = Integer.parseInt(scanner.nextLine());
                                     sleep(500);
 
-                                    Vehicle leaseVehicle = dealership.getVehicleByVIN(leaseVin);
+                                    System.out.println("Enter customer lease term in amount of months: \n");
+                                    int leaseTermMonths = Integer.parseInt(scanner.nextLine());
+                                    sleep(500);
 
-                                    if (leaseVehicle == null) {
-                                        System.out.println("No vehicle found with VIN\n");
-                                    } else {
-                                        System.out.println("Vehicle selected: \n" + leaseVehicle);
-                                    }
+                                    System.out.println("Enter monthly payments amount: \n");
+                                    double monthlyPayment = Double.parseDouble(scanner.nextLine());
+                                    sleep(500);
 
-                                    System.out.println("Will this be financed? (yes/no)\n");
-                                    String loanInput = scanner.nextLine();
-                                    boolean financeLease = loanInput.equalsIgnoreCase("yes");
+                                    System.out.println("Enter DealershipID: \n");
+                                    int leaseDealershipId = Integer.parseInt(scanner.nextLine());
+                                    sleep(500);
+
+                                   // Vehicle leaseVehicle = dealership.getVehicleByVIN(leaseVin);
+
+                                    //if (leaseVehicle == null) {
+                                   //     System.out.println("No vehicle found with VIN\n");
+                                   // } else {
+                                     //   System.out.println("Vehicle selected: \n" + leaseVehicle);
+                                   // }
+
+                                   // System.out.println("Will this be financed? (yes/no)\n");
+                                   // String loanInput = scanner.nextLine();
+                                   // boolean financeLease = loanInput.equalsIgnoreCase("yes");
 
                                     LeaseContract leaseContract = new LeaseContract(
                                             leaseDate,
                                             leaseName,
                                             leaseEmail,
-                                            leaseVehicle,
-                                            financeLease
+                                            leaseTermMonths,
+                                            monthlyPayment,
+                                            leaseDealershipId,
+                                            leaseVin
+
                                     );
 
-                                    ContractDataManager.processContract(dealership, leaseContract);
+                                    leaseDao.addLeaseContract(leaseContract);
+                                    System.out.println("Lease contract added");
 
-
-                                    String receiptLease = ContractFileManager.generateReceipt(leaseContract);
-                                    System.out.println(receiptLease);
-
-
-                                    ContractFileManager.saveReceiptToFile(receiptLease);
-
+                                   // ContractDataManager.processContract(dealership, leaseContract);
+                                  //  String receiptLease = ContractFileManager.generateReceipt(leaseContract);
+                                   // System.out.println(receiptLease);
+                                   // ContractFileManager.saveReceiptToFile(receiptLease);
 
                                     break;
 
@@ -322,7 +339,7 @@ public class UserInterface {
 
                      break;
                     case 99:
-                        DealershipFileManager.saveDealership(dealership);
+                       // DealershipFileManager.saveDealership(dealership);
                         System.out.println("Exiting...");
                         isRunning = false;
                         break;
@@ -338,6 +355,7 @@ public class UserInterface {
                 }
             catch(Exception e){
                 System.out.println("Invalid input, please try again");
+                e.printStackTrace();
 
 
             }

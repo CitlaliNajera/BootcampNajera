@@ -1,4 +1,8 @@
-package org.example;
+package org.example.Manager;
+
+import org.example.Contract;
+import org.example.Dealership;
+import org.example.Vehicle;
 
 public class ContractDataManager {
 

@@ -1,4 +1,9 @@
-package org.example;
+package org.example.Manager;
+
+import org.example.Contract;
+import org.example.LeaseContract;
+import org.example.SalesContract;
+import org.example.Vehicle;
 
 import java.io.*;
 import java.io.FileWriter;

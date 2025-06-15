@@ -14,6 +14,12 @@ public abstract class Contract {
         this.customerEmail = customerEmail;
         this.vehicle = vehicle;
     }
+    public Contract(String date, String customerName, String customerEmail) {
+        this.date = date;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+
+    }
 
     public String getDate() {
         return date;

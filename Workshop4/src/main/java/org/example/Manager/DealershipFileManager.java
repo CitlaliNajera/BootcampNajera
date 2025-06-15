@@ -1,11 +1,13 @@
-package org.example;
+package org.example.Manager;
+
+import org.example.Dealership;
+import org.example.Vehicle;
 
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DealershipFileManager {
 

@@ -43,33 +43,11 @@ public class Dealership {
         this.name = name;
     }
 
-    public  List<Vehicle> getVehiclesByPrice(double min, double max){
-        List<Vehicle> vehicles = new ArrayList<>();
-        for(Vehicle vehicle : inventory) {
-            if (vehicle.getPrice() > min && vehicle.getPrice() < max) {
-                vehicles.add(vehicle);
-
-            }
-        }
-        return vehicles;
-
-    }
-    public  List<Vehicle> getVehiclesByMakeModel(String make, String model){
-        List<Vehicle> vehicles = new ArrayList<>();
-        for(Vehicle vehicle : inventory) {
-            if (vehicle.getMake().toLowerCase().contains(make.toLowerCase()) &&
-                    vehicle.getModel().toLowerCase().contains(model.toLowerCase())) {
-                vehicles.add(vehicle);
-            }
-        }
-        return vehicles;
-
-    }
-    public  List<Vehicle> getVehiclesByYear(int yearStart, int yearEnd ){
-        List<Vehicle> vehicles = new ArrayList<>();
-        for(Vehicle vehicle : inventory){
+   public  List<Vehicle> getVehiclesByYear(int yearStart, int yearEnd ){
+       List<Vehicle> vehicles = new ArrayList<>();
+       for(Vehicle vehicle : inventory){
             if(vehicle.getYear()>=yearStart && vehicle.getYear()<=yearEnd) {
-                vehicles.add(vehicle);
+               vehicles.add(vehicle);
             }
         }
         return vehicles;
@@ -77,20 +55,20 @@ public class Dealership {
 
     public  List<Vehicle> getVehiclesByColor(String color){
         List<Vehicle> vehicles = new ArrayList<>();
-        for(Vehicle vehicle : inventory){
-            if(vehicle.getColor().toLowerCase().contains(color.toLowerCase())){
+       for(Vehicle vehicle : inventory){
+           if(vehicle.getColor().toLowerCase().contains(color.toLowerCase())){
                 vehicles.add(vehicle);
-            }
+           }
         }
         return vehicles;
 
     }
     public  List<Vehicle> getVehiclesByMileage (int odometerLow,int odometerHigh){
-        List<Vehicle> vehicles = new ArrayList<>();
+       List<Vehicle> vehicles = new ArrayList<>();
         for(Vehicle vehicle : inventory){
             if(vehicle.getOdometer()>odometerLow && vehicle.getOdometer()<odometerHigh){
-                vehicles.add(vehicle);
-            }
+               vehicles.add(vehicle);
+           }
         }
         return vehicles;
 
